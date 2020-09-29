@@ -31,6 +31,7 @@ dependencies:
   qr_flutter: ^3.2.0
   path_provider: ^1.6.18
   share: ^0.6.5+2
+  form_field_validator: ^1.0.1
 
 
 dev_dependencies:
