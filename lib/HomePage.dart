@@ -1,4 +1,6 @@
 import 'package:e_visiting_card/NavigationDrawer.dart';
+import 'package:e_visiting_card/generate.dart';
+import 'package:e_visiting_card/scanner.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +34,10 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(30),
               child: RaisedButton.icon(
                   onPressed: () {
-                    //to be implemented
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Scanner()),
+                    );
                   },
                   color: Colors.yellow,
                   elevation: 5.0,
@@ -45,7 +50,10 @@ class _HomePageState extends State<HomePage> {
                 elevation: 5.0,
                 color: Colors.lightBlue,
                 onPressed: () {
-                  //to be implemented
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Generate()),
+                    );
                 },
                 icon: Icon(Icons.card_travel),
                 label: Text(
