@@ -1,4 +1,5 @@
 import 'package:e_visiting_card/NavigationDrawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,6 +28,32 @@ class _HomePageState extends State<HomePage> {
               maxRadius: 150,
               backgroundColor: Colors.black,
             ),
+            Padding(
+              padding: EdgeInsets.all(30),
+              child: RaisedButton.icon(
+                  onPressed: () {
+                    //to be implemented
+                  },
+                  color: Colors.yellow,
+                  elevation: 5.0,
+                  icon: Icon(Icons.select_all),
+                  label: Text('SCAN', style: TextStyle(fontSize: 20))),
+            ),
+            Padding(
+              padding: EdgeInsets.all(0),
+              child: RaisedButton.icon(
+                elevation: 5.0,
+                color: Colors.lightBlue,
+                onPressed: () {
+                  //to be implemented
+                },
+                icon: Icon(Icons.card_travel),
+                label: Text(
+                  'GENERATE',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            )
           ],
         ),
       ),
