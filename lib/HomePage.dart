@@ -13,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("E-Visiting Card"),
       ),
@@ -51,9 +52,9 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.lightBlue,
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Generate()),
-                    );
+                    context,
+                    MaterialPageRoute(builder: (context) => Generate()),
+                  );
                 },
                 icon: Icon(Icons.card_travel),
                 label: Text(
