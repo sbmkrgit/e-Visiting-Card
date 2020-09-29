@@ -15,10 +15,21 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: NavigationDrawer(),
       body: Center(
-          child: Text(
-        "Home page",
-        textScaleFactor: 2,
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            CircleAvatar(
+              child: Image.asset(
+                'images/card.png',
+                fit: BoxFit.fill,
+              ),
+              maxRadius: 150,
+              backgroundColor: Colors.black,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

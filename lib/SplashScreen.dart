@@ -24,8 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/card.png',
-                width: 300, height: 300, fit: BoxFit.fill),
+            CircleAvatar(
+              child: Image.asset(
+                'images/card2.png',
+                fit: BoxFit.scaleDown,
+              ),
+              backgroundColor: Colors.transparent,
+              maxRadius: 150,
+            ),
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Text(
