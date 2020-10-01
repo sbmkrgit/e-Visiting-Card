@@ -29,6 +29,7 @@ class _ScannerState extends State<Scanner> {
   _requestPermission() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
+      Permission.camera,
     ].request();
 
     final info = statuses[Permission.storage].toString();
