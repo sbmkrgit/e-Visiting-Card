@@ -1,3 +1,4 @@
+import 'package:e_visiting_card/Qr.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
@@ -102,7 +103,12 @@ class _GenerateState extends State<Generate> {
                       child: RaisedButton.icon(
                         elevation: 5.0,
                         color: Colors.green,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => QrCode()),
+                          );
+                        },
                         icon: Icon(
                           Icons.send,
                           color: Colors.white,
