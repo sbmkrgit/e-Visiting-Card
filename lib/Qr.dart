@@ -41,7 +41,6 @@ class _QrCodeState extends State<QrCode> {
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.share),
-                color: Colors.white,
                 onPressed: () {
                   _captureAndSharePng();
                 })
