@@ -31,6 +31,13 @@ dependencies:
   qr_flutter: ^3.2.0
   path_provider: ^1.6.18
   share: ^0.6.5+2
+  form_field_validator: ^1.0.1
+  barcode_scan: ^1.0.0
+  screenshot: ^0.2.0
+  gallery_saver: ^2.0.1
+  image_gallery_saver: '^1.5.0'
+  permission_handler: ^5.0.1+1
+  fluttertoast: ^7.1.1
 
 
 dev_dependencies:

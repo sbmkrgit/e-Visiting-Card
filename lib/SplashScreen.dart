@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: <Widget>[
             CircleAvatar(
               child: Image.asset(
-                'images/card2.png',
+                'images/card.png',
                 fit: BoxFit.scaleDown,
               ),
               backgroundColor: Colors.transparent,
