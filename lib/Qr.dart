@@ -38,6 +38,13 @@ class _QrCodeState extends State<QrCode> {
     return Scaffold(
         appBar: AppBar(
           title: Text('HomePage'),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.share),
+                onPressed: () {
+                  _captureAndSharePng();
+                })
+          ],
         ),
         body: Column(children: [
           RepaintBoundary(
@@ -49,9 +56,6 @@ class _QrCodeState extends State<QrCode> {
               backgroundColor: Colors.white,
             ),
           ),
-          RaisedButton(onPressed: () {
-            _captureAndSharePng();
-          })
         ]));
   }
 }
