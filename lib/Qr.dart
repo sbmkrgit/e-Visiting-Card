@@ -26,7 +26,7 @@ class _QrCodeState extends State<QrCode> {
     try {
       RenderRepaintBoundary boundary =
           globalKey.currentContext.findRenderObject();
-      var image = await boundary.toImage();
+      var image = await boundary.toImage(pixelRatio: 16);
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
       final tempDir = await getTemporaryDirectory();
@@ -52,14 +52,16 @@ class _QrCodeState extends State<QrCode> {
                 })
           ],
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          RepaintBoundary(
-            key: globalKey,
-            child: QrImage(
-              data: "some text",
-              size: 300.0,
-              version: 10,
-              backgroundColor: Colors.white,
+        body: ListView( children: [
+          Padding(padding: EdgeInsets.only(left: 40),
+                      child: RepaintBoundary(
+              key: globalKey,
+              child: QrImage(
+                data: "some text",
+                size: 300.0,
+                version: 10,
+                backgroundColor: Colors.white,
+              ),
             ),
           ),
           /* Padding(

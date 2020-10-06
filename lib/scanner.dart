@@ -42,7 +42,7 @@ class _ScannerState extends State<Scanner> {
   }
 
   Future<void> _captureAndSavePng() async {
-    screenshotController.capture(pixelRatio: 8.0).then((File image) async {
+    screenshotController.capture(pixelRatio: 16.0).then((File image) async {
       _toastInfo("Capture Done");
       setState(() {});
       ImageGallerySaver.saveImage(image.readAsBytesSync());
