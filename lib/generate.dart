@@ -1,6 +1,7 @@
-import 'package:e_visiting_card/Qr.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
+import 'Qr.dart';
 
 class Generate extends StatefulWidget {
   @override
@@ -8,6 +9,21 @@ class Generate extends StatefulWidget {
 }
 
 class _GenerateState extends State<Generate> {
+  List<String> details = List<String>();
+  /* String name;
+  String email;
+ */
+  void _sendDataToQrPage(BuildContext context) {
+    List<String> listToSend = details;
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => QrCode(
+            getDetails: listToSend,
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +47,9 @@ class _GenerateState extends State<Generate> {
                             prefixIcon: Icon(Icons.perm_identity)),
                         validator:
                             RequiredValidator(errorText: "Can't be Empty !"),
+                        onChanged: (value) {
+                          details.add(value);
+                        },
                       ),
                     ),
                     Padding(
@@ -104,10 +123,7 @@ class _GenerateState extends State<Generate> {
                         elevation: 5.0,
                         color: Colors.green,
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => QrCode()),
-                          );
+                          _sendDataToQrPage(context);
                         },
                         icon: Icon(
                           Icons.send,

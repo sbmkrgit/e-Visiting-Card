@@ -9,11 +9,17 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share/share.dart';
 
 class QrCode extends StatefulWidget {
+  final List<String> getDetails;
+
+  const QrCode({Key key, this.getDetails}) : super(key: key);
+
   @override
-  _QrCodeState createState() => _QrCodeState();
+  _QrCodeState createState() => _QrCodeState(getDetails);
 }
 
 class _QrCodeState extends State<QrCode> {
+  List<String> getDetails;
+  _QrCodeState(this.getDetails);
   GlobalKey globalKey = new GlobalKey();
 
   Future<void> _captureAndSharePng() async {
@@ -46,7 +52,7 @@ class _QrCodeState extends State<QrCode> {
                 })
           ],
         ),
-        body: Column(children: [
+        body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           RepaintBoundary(
             key: globalKey,
             child: QrImage(
@@ -56,6 +62,16 @@ class _QrCodeState extends State<QrCode> {
               backgroundColor: Colors.white,
             ),
           ),
+          /* Padding(
+              padding: EdgeInsets.all(15.0),
+              child: ListView.builder(
+                itemCount: getDetails.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text('${getDetails[index]}'),
+                  );
+                },
+              )), */
         ]));
   }
 }
