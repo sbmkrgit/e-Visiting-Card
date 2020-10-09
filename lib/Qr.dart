@@ -43,7 +43,7 @@ class _QrCodeState extends State<QrCode> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('HomePage'),
+          title: Text('Details'),
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.share),
@@ -52,28 +52,50 @@ class _QrCodeState extends State<QrCode> {
                 })
           ],
         ),
-        body: ListView( children: [
-          Padding(padding: EdgeInsets.only(left: 40),
-                      child: RepaintBoundary(
-              key: globalKey,
-              child: QrImage(
-                data: "some text",
-                size: 300.0,
-                version: 10,
-                backgroundColor: Colors.white,
-              ),
+        body: Center(
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: RepaintBoundary(
+                    key: globalKey,
+                    child: QrImage(
+                      data: "some text",
+                      size: 300.0,
+                      version: 10,
+                      backgroundColor: Colors.white,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 100, left: 20, right: 20),
+                  child: const ListTile(
+                    leading: Icon(Icons.album),
+                    title: Text('The Enchanted Nightingale'),
+                    subtitle:
+                        Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    FlatButton(
+                      child: const Text('BUY TICKETS'),
+                      onPressed: () {/* ... */},
+                    ),
+                    const SizedBox(width: 8),
+                    FlatButton(
+                      child: const Text('LISTEN'),
+                      onPressed: () {/* ... */},
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ],
             ),
           ),
-          /* Padding(
-              padding: EdgeInsets.all(15.0),
-              child: ListView.builder(
-                itemCount: getDetails.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text('${getDetails[index]}'),
-                  );
-                },
-              )), */
-        ]));
+        ));
   }
 }
