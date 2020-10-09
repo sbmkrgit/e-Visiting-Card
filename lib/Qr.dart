@@ -18,7 +18,7 @@ class QrCode extends StatefulWidget {
 }
 
 class _QrCodeState extends State<QrCode> {
-  List<String> getDetails;
+  List<String> getDetails = <String>[];
   _QrCodeState(this.getDetails);
   GlobalKey globalKey = new GlobalKey();
 
@@ -53,48 +53,99 @@ class _QrCodeState extends State<QrCode> {
           ],
         ),
         body: Center(
-          child: Card(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: RepaintBoundary(
-                    key: globalKey,
-                    child: QrImage(
-                      data: "some text",
-                      size: 300.0,
-                      version: 10,
-                      backgroundColor: Colors.white,
+          child: ListView(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, top: 20),
+                    child: RepaintBoundary(
+                      key: globalKey,
+                      child: QrImage(
+                        data: '${getDetails.join('\n')}',
+                        size: 250.0,
+                        version: 10,
+                        backgroundColor: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 100, left: 20, right: 20),
-                  child: const ListTile(
-                    leading: Icon(Icons.album),
-                    title: Text('The Enchanted Nightingale'),
-                    subtitle:
-                        Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Container(
+                      width: 350,
+                      child: ListView(
+                        children: [
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.yellowAccent,
+                            elevation: 10,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: Icon(Icons.person,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[0].toUpperCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.email,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[1].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.home,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[2].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.description,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[3].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.web_asset,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[4].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.web,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[5].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.phone,
+                                      size: 30, color: Colors.black),
+                                  title: Text('${getDetails[6].toLowerCase()}',
+                                      style: TextStyle(fontSize: 20.0)),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    FlatButton(
+                                      child: const Text('SHARE'),
+                                      onPressed: () {/* ... */},
+                                    ),
+                                    const SizedBox(width: 8),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    FlatButton(
-                      child: const Text('BUY TICKETS'),
-                      onPressed: () {/* ... */},
-                    ),
-                    const SizedBox(width: 8),
-                    FlatButton(
-                      child: const Text('LISTEN'),
-                      onPressed: () {/* ... */},
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
         ));
   }
