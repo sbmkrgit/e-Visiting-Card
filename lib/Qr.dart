@@ -20,20 +20,38 @@ class QrCode extends StatefulWidget {
 class _QrCodeState extends State<QrCode> {
   List<String> getDetails = <String>[];
   _QrCodeState(this.getDetails);
-  GlobalKey globalKey = new GlobalKey();
+  var globalKeyQr = new GlobalKey();
+  var globalKeyCard = new GlobalKey();
 
-  Future<void> _captureAndSharePng() async {
+  Future<void> _captureAndShareQr() async {
     try {
-      RenderRepaintBoundary boundary =
-          globalKey.currentContext.findRenderObject();
-      var image = await boundary.toImage(pixelRatio: 16);
+      RenderRepaintBoundary boundaryQr =
+          globalKeyQr.currentContext.findRenderObject();
+      var image = await boundaryQr.toImage(pixelRatio: 16);
+      ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
+      Uint8List pngBytes = byteData.buffer.asUint8List();
+      final tempDirQr = await getTemporaryDirectory();
+      final fileQr = await new File('${tempDirQr.path}/imageQr.png').create();
+      await fileQr.writeAsBytes(pngBytes);
+
+      Share.shareFiles(['${tempDirQr.path}/imageQr.png']);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _shareCard() async {
+    try {
+      RenderRepaintBoundary boundaryCard =
+          globalKeyCard.currentContext.findRenderObject();
+      var image = await boundaryCard.toImage(pixelRatio: 16);
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
       final tempDir = await getTemporaryDirectory();
-      final file = await new File('${tempDir.path}/image.png').create();
-      await file.writeAsBytes(pngBytes);
+      final fileCard = await new File('${tempDir.path}/imageCard.png').create();
+      await fileCard.writeAsBytes(pngBytes);
 
-      Share.shareFiles(['${tempDir.path}/image.png']);
+      Share.shareFiles(['${tempDir.path}/imageCard.png']);
     } catch (e) {
       print(e.toString());
     }
@@ -44,13 +62,6 @@ class _QrCodeState extends State<QrCode> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Details'),
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.share),
-                onPressed: () {
-                  _captureAndSharePng();
-                })
-          ],
         ),
         body: Center(
           child: ListView(
@@ -60,7 +71,7 @@ class _QrCodeState extends State<QrCode> {
                   Padding(
                     padding: EdgeInsets.only(left: 10, top: 20),
                     child: RepaintBoundary(
-                      key: globalKey,
+                      key: globalKeyQr,
                       child: QrImage(
                         data: '${getDetails.join('\n')}',
                         size: 250.0,
@@ -70,79 +81,113 @@ class _QrCodeState extends State<QrCode> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 20, bottom: 20),
                     child: Container(
                       width: 350,
-                      child: ListView(
-                        children: [
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            color: Colors.yellowAccent,
-                            elevation: 10,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: Icon(Icons.person,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[0].toUpperCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.email,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[1].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.home,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[2].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.description,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[3].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.web_asset,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[4].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.web,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[5].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.phone,
-                                      size: 30, color: Colors.black),
-                                  title: Text('${getDetails[6].toLowerCase()}',
-                                      style: TextStyle(fontSize: 20.0)),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    FlatButton(
-                                      child: const Text('SHARE'),
-                                      onPressed: () {/* ... */},
-                                    ),
-                                    const SizedBox(width: 8),
-                                  ],
-                                ),
-                              ],
-                            ),
+                      child: RepaintBoundary(
+                        key: globalKeyCard,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                        ],
+                          color: Colors.yellowAccent,
+                          elevation: 10,
+                          child: Column(
+                            //mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: Icon(Icons.person,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[0].toUpperCase()}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.email,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[1].toLowerCase()}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.home,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[2]}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.description,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[3]}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.web_asset,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[4]}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.web,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[5]}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.phone,
+                                    size: 30, color: Colors.black),
+                                title: Text('${getDetails[6]}',
+                                    style: TextStyle(fontSize: 20.0)),
+                              ),
+
+                              /* Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  FlatButton(
+                                    child: const Text('SHARE'),
+                                    onPressed: () {
+                                      _shareCard();
+                                    },
+                                  ),
+                                  const SizedBox(width: 8),
+                                ],
+                              ), */
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton.icon(
+                          color: Colors.green,
+                          onPressed: () {
+                            _captureAndShareQr();
+                          },
+                          icon: Icon(
+                            Icons.share,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            'Share QR',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                      Padding(padding: EdgeInsets.all(10)),
+                      RaisedButton.icon(
+                          color: Colors.green,
+                          onPressed: () {
+                            _shareCard();
+                          },
+                          icon: Icon(
+                            Icons.share,
+                            color: Colors.white,
+                          ),
+                          label: Text(
+                            'Share Card',
+                            style: TextStyle(color: Colors.white),
+                          ))
+                    ],
+                  )
                 ],
               ),
             ],
