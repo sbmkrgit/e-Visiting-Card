@@ -60,6 +60,18 @@ class NavigationDrawer extends StatelessWidget {
               // ...
             },
           ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text(
+              'About this App !!',
+              style: TextStyle(fontSize: 15),
+            ),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
         ],
       ),
     );
