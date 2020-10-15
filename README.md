@@ -1,6 +1,6 @@
 # e_visiting_card
 
-A new Flutter project.
+A new Flutter project based on visiting cards with dynamic QR Codes.
 
 ## Getting Started
 
