@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:e_visiting_card/NavigationDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -64,7 +63,6 @@ class _QrCodeState extends State<QrCode> {
         appBar: AppBar(
           title: Text('Details'),
         ),
-        drawer: NavigationDrawer(),
         body: Center(
           child: ListView(
             children: [
