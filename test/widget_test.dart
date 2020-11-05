@@ -8,23 +8,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:e_visiting_card/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('E-Visiting Card Test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyAppWidget(title: 'Ti', message: 'Msg'));
+    final titleFinder = find.text('Ti');
+    final messageFinder = find.text('Msg');
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(titleFinder, findsOneWidget);
+    expect(messageFinder, findsOneWidget);
   });
+}
+
+class MyAppWidget extends StatelessWidget {
+  final String title;
+  final String message;
+
+  const MyAppWidget({
+    Key key,
+    @required this.title,
+    @required this.message,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Testing Demo',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: Center(
+          child: Text(message),
+        ),
+      ),
+    );
+  }
 }
